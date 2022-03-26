@@ -1,4 +1,4 @@
-# ENGG1340_group_project
+# 2048 GAME
 ENGG1340_group_project
 ## Change text colour
 #### The color of the grid frame set in the 2048 game is lake blue, and the color of the numbers is light green, green, etc. All these settings involve how to change the output color of the text.
