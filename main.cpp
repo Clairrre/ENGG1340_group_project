@@ -9,51 +9,51 @@
 
 using namespace std;
 
-const int N = 15;       //15*15的棋盘
-const char ChessBoard = ' ';  //棋盘标志
-const char flag1 = 'o';    //玩家1或电脑标志
-const char flag2 = 'x';    //玩家2标志
+const int N = 15;       //15*15 Chessboard
+const char ChessBoard = ' ';  //Chessboard Sign
+const char flag1 = 'o';    //Player 1 or computer logo
+const char flag2 = 'x';    //Player 2 logo
 
-typedef struct Position{    //坐标
-    int row;        //行
-    int col;        //列
+typedef struct Position{    //Coordinate
+    int row;        //Row
+    int col;        //Column
 }Position;
 
-class GoBang{     //五子棋类
+class GoBang{     //Backgammon
 private:
-    char _ChessBoard[N + 1][N + 1];    //棋盘
+    char _ChessBoard[N + 1][N + 1];    //Chessboard
 public:
     GoBang(){
-        InitChessBoard();      //初始化棋盘
+        InitChessBoard();      //Initialize the board
     }
-    void Play(){      //下棋
-        Position Play1;   //玩家1或电脑
-        Position Play2;   //玩家2
+    void Play(){      //Play chess
+        Position Play1;   //Player 1 or Computer
+        Position Play2;   //Player 2
         while (1){
             int mode = ChoiceMode();
             while (1){
-                if (mode == 1){       //电脑VS玩家
-                    ComputerChess(Play1, flag1);            //电脑走
-                    if (GetVictory(Play1, 0, flag1)){       //0代表电脑，为真则表示电脑获胜
+                if (mode == 1){       //Computer vs Player
+                    ComputerChess(Play1, flag1);            //Computer plays chess
+                    if (GetVictory(Play1, 0, flag1)){       //0 for the computer, true for the computer to win
                         break;
                     }
-                    PlayChess(Play2, 2, flag2);         //玩家2走
-                    if (GetVictory(Play2, 2, flag2)){       //2代表玩家2
+                    PlayChess(Play2, 2, flag2);         //Player 2 plays chess
+                    if (GetVictory(Play2, 2, flag2)){       //2 for player 2
                         break;
                     }
                 }
-                else{               //玩家1VS玩家2
-                    PlayChess(Play1, 1, flag1);         //玩家1走
-                    if (GetVictory(Play1, 1, flag1)){       //玩家1赢
+                else{               //Player 1 vs Player 2
+                    PlayChess(Play1, 1, flag1);         //Player 1 plays chess
+                    if (GetVictory(Play1, 1, flag1)){       //Player 1 wins
                         break;
                     }
-                    PlayChess(Play2, 2, flag2);         //玩家2走
-                    if (GetVictory(Play2, 2, flag2)){       //玩家2赢
+                    PlayChess(Play2, 2, flag2);         //Player 2 plays chess
+                    if (GetVictory(Play2, 2, flag2)){       //Player 2 wins
                         break;
                     }
                 }
             }
-            cout << "======再来一局=======" << endl;
+            cout << "======One More Round=======" << endl;
             cout << "yes or no :";
             char s[] = "yes";
             save();
@@ -65,7 +65,7 @@ public:
     }
 
 protected:
-    void InitChessBoard(){          //初始化棋盘
+    void InitChessBoard(){          //Initialize the board
         for (int i = 0; i < N + 1; ++i){
             for (int j = 0; j < N + 1; ++j){
                 _ChessBoard[i][j] = ChessBoard;
@@ -73,32 +73,32 @@ protected:
         }
     }
 
-    int ChoiceMode(){           //选择模式
+    int ChoiceMode(){           //Mode Selection
         system("cls");
-        //系统调用，清屏
-        InitChessBoard();       //重新初始化棋盘
+        //system call, clear screen
+        InitChessBoard();       //Reinitialize the board
         cout << "*************************************************" << endl;
-        cout << "******************0、退出************************" << endl;
-        cout << "******************1、电脑VS玩家******************" << endl;
-        cout << "******************2、玩家VS玩家******************" << endl;
+        cout << "******************0、Quit************************" << endl;
+        cout << "******************1、Computer vs Player******************" << endl;
+        cout << "******************2、Player vs Player******************" << endl;
         cout << "*************************************************" << endl;
         while (1){
             int i = 0;
-            cout << "请选择模式：";
+            cout << "Please select a mode: ";
             cin >> i;
-            if (i == 0){       //退出
+            if (i == 0){       //Quit
                 exit(1);
             }
             if (i == 1 || i == 2){
                 return i;
             }
             else{
-                cout << "非法输入，请重新输入！" << endl;
+                cout << "Illegal input, please re-enter!" << endl;
             }
         }
     }
 
-    void PrintChessBoard(){        //打印棋盘
+    void PrintChessBoard(){        //print checkerboard
         printf("     1   2   3   4   5   6   7   8   9  10  11  12  13  14  15\n");
         printf("   |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n");
         for (int i = 1; i < N + 1; ++i)
@@ -110,16 +110,16 @@ protected:
         cout << endl;
     }
 
-    void ComputerChess(Position& pos, char flag){     //电脑走
-        //PrintChessBoard();      //打印棋盘
+    void ComputerChess(Position& pos, char flag){     //Computer Chess
+        //PrintChessBoard();      //Print Chessboard
         int x = 0;
         int y = 0;
-        while (1){                    //循环查找空位置
-            x = (rand() % N) + 1;      //产生从1~N的随机数
+        while (1){                    //Loop to find empty locations
+            x = (rand() % N) + 1;      //Generate random numbers from 1 to N
             srand((unsigned int)time(NULL));
-            y = (rand() % N) + 1;      //产生从1~N的随机数
+            y = (rand() % N) + 1;      //Generate random numbers from 1 to N
             srand((unsigned int)time(NULL));
-            if (_ChessBoard[x][y] == ChessBoard){       //如果这个位置为空（没有棋子），跳出循环，下棋
+            if (_ChessBoard[x][y] == ChessBoard){       //If this position is empty (no pawn), break out of the loop and play chess
                 break;
             }
         }
@@ -129,34 +129,34 @@ protected:
     }
 
     void PlayChess(Position& pos, int player, char flag){
-        PrintChessBoard();      //打印棋盘
+        PrintChessBoard();      //Print Chessboard
         while (1){
-            printf("请玩家%d输入坐标：", player);
+            printf("Please Player %d enter the coordinate：", player);
             cin >> pos.row >> pos.col;
-            if (JudgeValue(pos) == 1){        //判断坐标是否合法
+            if (JudgeValue(pos) == 1){        //Determine whether the coordinates are legal
                 break;
             }
-            cout << "坐标不合法，请重新输入：" << endl;
+            cout << "The coordinates are invalid, please re-enter:" << endl;
         }
         _ChessBoard[pos.row][pos.col] = flag;
     }
 
-    int JudgeValue(const Position& pos){       //判断坐标的合法性
-        //1.在棋盘上
+    int JudgeValue(const Position& pos){       //Judging the legitimacy of coordinates
+        //1.On the Chessboard
         if (pos.row > 0 && pos.row <= N && pos.col > 0 && pos.col <= N){
-            //2.所在位置为空（没有棋子）
+            //2.The position is empty (no pawns）
             if (_ChessBoard[pos.row][pos.col] == ChessBoard){
-                return 1;      //合法
+                return 1;      //legitimate
             }
         }
-        return 0;       //非法
+        return 0;       //illegal
     }
 
-    int JudgeVictory(Position pos, char flag){     //判断是否有玩家获胜（底层判断）
+    int JudgeVictory(Position pos, char flag){     //Judging whether a player wins (bottom judgment)
         int begin = 0;
         int end = 0;
 
-        //1.判断行是否满足条件
+        //1.Determine if a row satisfies a condition
         (pos.col - 4) > 0 ? begin = (pos.col - 4) : begin = 1;
         (pos.col + 4) > N ? end = N : end = (pos.col + 4);
         for (int i = pos.row, j = begin; j + 4 <= end; ++j){
@@ -165,7 +165,7 @@ protected:
             _ChessBoard[i][j + 4] == flag)
                 return 1;
         }
-        //2.判断列是否满足条件
+        //2.Check if a column satisfies a condition
         (pos.row - 4) > 0 ? begin = (pos.row - 4) : begin = 1;
         (pos.row + 4) > N ? end = N : end = (pos.row + 4);
         for (int j = pos.col, i = begin ; i + 4 <= end; ++i){
@@ -174,23 +174,23 @@ protected:
             _ChessBoard[i + 4][j] == flag)
                 return 1;
         }
-        //3.判断主对角线是否满足条件
-        int len = 0;    //相对长度
+        //3.Determine whether the main diagonal meets the condition
+        int len = 0;    //relative length
         int start = 0;
         int finish = 0;
         pos.row > pos.col ? len = pos.col - 1 : len = pos.row - 1;
         if (len > 4){
             len = 4;
         }
-        begin = pos.row - len;       //横坐标起始位置
-        start = pos.col - len;       //纵坐标起始位置
+        begin = pos.row - len;       //abscissa start position
+        start = pos.col - len;       //The starting position of the ordinate
 
         pos.row > pos.col ? len = N - pos.row : len = N - pos.col;
         if (len > 4){
             len = 4;
         }
-        end = pos.row + len;         //横坐标结束位置
-        finish = pos.col + len;      //纵坐标结束位置
+        end = pos.row + len;         //abscissa end position
+        finish = pos.col + len;      //The end position of the ordinate
 
         for (int i = begin, j = start; (i + 4 <= end) && (j + 4 <= finish); ++i, ++j){
             if (_ChessBoard[i][j] == flag && _ChessBoard[i + 1][j + 1] == flag &&
@@ -198,54 +198,54 @@ protected:
             _ChessBoard[i + 4][j + 4] == flag)
                 return 1;
         }
-        //4.判断副对角线是否满足条件
+        //4.Determine whether the subdiagonal meets the condition
         (pos.row - 1) > (N - pos.col) ? len = N - pos.col : len = pos.row - 1;
         if (len > 4){
             len = 4;
         }
-        begin = pos.row - len;       //横坐标起始位置
-        start = pos.col + len;       //纵坐标起始位置
+        begin = pos.row - len;       //abscissa start position
+        start = pos.col + len;       //The starting position of the ordinate
 
         (N - pos.row) > (pos.col - 1) ? len = pos.col - 1 : len = N - pos.row;
         if (len > 4){
             len = 4;
         }
-        end = pos.row + len;         //横坐标结束位置
-        finish = pos.col - len;      //纵坐标结束位置
+        end = pos.row + len;         //abscissa end position
+        finish = pos.col - len;      //The end position of the ordinate
         for (int i = begin, j = start; (i + 4 <= end) && (j - 4 >= finish); ++i, --j){
             if (_ChessBoard[i][j] == flag && _ChessBoard[i + 1][j - 1] == flag &&
             _ChessBoard[i + 2][j - 2] == flag && _ChessBoard[i + 3][j - 3] == flag &&
             _ChessBoard[i + 4][j - 4] == flag)
                 return 1;
         }
-        //该位置并未下棋
+        //The position is not playing chess
         for (int x = 1; x < N + 1; ++x){
             for (int y = 1; y < N + 1; ++y){
                 if (_ChessBoard[x][y] == ChessBoard){
-                    return 0;       //未下棋
+                    return 0;       //Not playing chess
                 }
             }
         }
-        return -1;      //和局
+        return -1;      //Tie
     }
 
-    bool GetVictory(Position& pos, int player, char flag){       //判断具体哪位玩家赢
-        if (JudgeVictory(pos, flag) != 0){    //判断有无人获胜
-            if (JudgeVictory(pos, flag) == 1){     //判断是否有人获胜,1表示获胜
-                PrintChessBoard();     //打印棋盘
+    bool GetVictory(Position& pos, int player, char flag){       //Determine which player wins
+        if (JudgeVictory(pos, flag) != 0){    //Judging if there is a winner
+            if (JudgeVictory(pos, flag) == 1){     //Determine whether someone wins, 1 means winning
+                PrintChessBoard();     //Print Chessboard
                 if (player == 0){
-                    cout << "电脑获胜！" << endl;
+                    cout << "Computer Wins！" << endl;
                 }
                 else{
-                    printf("恭喜玩家%d获胜！\n", player);
+                    printf("Congratulations to Player %d for winning！\n", player);
                 }
             }
             else{
-                printf("和局！\n");
+                printf("Tie！\n");
             }
-            return true;      //有人获胜
+            return true;      //Someone Wins
         }
-        return false;         //没人获胜
+        return false;         //No One Wins
     }
 
 public:
